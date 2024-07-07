@@ -65,7 +65,6 @@ const Dashboard = () => {
                   width="270"
                 />
                 <h2 className="card-title">{resto.name || "No name available"}</h2>
-                <h6 className="card-text">{resto.description || "No description available"}</h6>
                 <h5 className="card-text">{resto.city || "No city available"}</h5>
                 <h5 className="card-text">{resto.rating || "No rating available"}</h5>
                 {findRestoItem(resto.id) ? (

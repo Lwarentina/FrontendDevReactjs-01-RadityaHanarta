@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { useParams } from "react-router-dom";
 
-const Detail = ({ match }) => {
+const Detail = () => {
+  const { id } = useParams();
   const [restaurant, setRestaurant] = useState(null);
 
   useEffect(() => {
@@ -10,7 +12,7 @@ const Detail = ({ match }) => {
 
   const fetchRestaurantDetail = async () => {
     try {
-      const response = await axios.get(`https://restaurant-api.dicoding.dev/detail/${match.params.id}`);
+      const response = await axios.get(`https://restaurant-api.dicoding.dev/detail/${id}`);
       setRestaurant(response.data.restaurant);
     } catch (error) {
       console.error("Error fetching restaurant detail:", error);
