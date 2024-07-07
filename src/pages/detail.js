@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import ReactStars from "react-rating-stars-component";
+import { Container, Row, Col, Card, ListGroup } from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Detail = () => {
   const { id } = useParams();
@@ -24,53 +27,86 @@ const Detail = () => {
   }
 
   return (
-    <div className="container">
-      <h1>{restaurant.name}</h1>
-      <div>
-        <img
-          src={`https://restaurant-api.dicoding.dev/images/medium/${restaurant.pictureId}`}
-          alt={restaurant.name}
-          height="200"
-          width="270"
-        />
-      </div>
-      <p>{restaurant.description}</p>
-      <p>City: {restaurant.city}</p>
-      <p>Address: {restaurant.address}</p>
-      <p>Rating: {restaurant.rating}</p>
-      <h3>Categories:</h3>
-      <ul>
-        {restaurant.categories.map((category, index) => (
-          <li key={index}>{category.name}</li>
-        ))}
-      </ul>
-      <h3>Menus:</h3>
-      <div>
-        <h4>Foods:</h4>
-        <ul>
-          {restaurant.menus.foods.map((food, index) => (
-            <li key={index}>{food.name}</li>
-          ))}
-        </ul>
-      </div>
-      <div>
-        <h4>Drinks:</h4>
-        <ul>
-          {restaurant.menus.drinks.map((drink, index) => (
-            <li key={index}>{drink.name}</li>
-          ))}
-        </ul>
-      </div>
-      <h3>Customer Reviews:</h3>
-      <ul>
-        {restaurant.customerReviews.map((review, index) => (
-          <li key={index}>
-            <p>{review.name} - {review.date}</p>
-            <p>{review.review}</p>
-          </li>
-        ))}
-      </ul>
-    </div>
+    <Container className="mt-4">
+      <Row>
+        <Col md={12} className="mb-3">
+          <Card>
+            <Card.Img variant="top" src={`https://restaurant-api.dicoding.dev/images/medium/${restaurant.pictureId}`} alt={restaurant.name} />
+            <Card.Body>
+              <Card.Title>{restaurant.name}</Card.Title>
+              <Card.Text>{restaurant.description}</Card.Text>
+              <Card.Text><strong>City:</strong> {restaurant.city}</Card.Text>
+              <Card.Text><strong>Address:</strong> {restaurant.address}</Card.Text>
+              <div className="mb-3">
+                <h4>Rating:</h4>
+                <ReactStars
+                  count={5}
+                  value={restaurant.rating}
+                  size={24}
+                  activeColor="#ffd700"
+                  isHalf={true}
+                  edit={false}
+                />
+              </div>
+            </Card.Body>
+          </Card>
+        </Col>
+      </Row>
+      <Row>
+        <Col md={6} className="mb-3">
+          <Card>
+            <Card.Body>
+              <Card.Title>Categories</Card.Title>
+              <ListGroup variant="flush">
+                {restaurant.categories.map((category, index) => (
+                  <ListGroup.Item key={index}>{category.name}</ListGroup.Item>
+                ))}
+              </ListGroup>
+            </Card.Body>
+          </Card>
+        </Col>
+        <Col md={6} className="mb-3">
+          <Card>
+            <Card.Body>
+              <Card.Title>Menus</Card.Title>
+              <h4>Foods</h4>
+              <ListGroup variant="flush">
+                {restaurant.menus.foods.map((food, index) => (
+                  <ListGroup.Item key={index}>
+                    {food.name} - ${food.price || "0"}
+                  </ListGroup.Item>
+                ))}
+              </ListGroup>
+              <h4 className="mt-3">Drinks</h4>
+              <ListGroup variant="flush">
+                {restaurant.menus.drinks.map((drink, index) => (
+                  <ListGroup.Item key={index}>
+                    {drink.name} - ${drink.price || "0"}
+                  </ListGroup.Item>
+                ))}
+              </ListGroup>
+            </Card.Body>
+          </Card>
+        </Col>
+      </Row>
+      <Row>
+        <Col>
+          <Card>
+            <Card.Body>
+              <Card.Title>Customer Reviews</Card.Title>
+              <ListGroup variant="flush">
+                {restaurant.customerReviews.map((review, index) => (
+                  <ListGroup.Item key={index}>
+                    <p><strong>{review.name}</strong> - {review.date}</p>
+                    <p>{review.review}</p>
+                  </ListGroup.Item>
+                ))}
+              </ListGroup>
+            </Card.Body>
+          </Card>
+        </Col>
+      </Row>
+    </Container>
   );
 };
 
