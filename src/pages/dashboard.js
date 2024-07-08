@@ -106,8 +106,12 @@ const Dashboard = () => {
       <h1 className="mt-4">Restaurant</h1>
       <p className="mt-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
       <br></br>
-      <Row className="mt-4">
-        <Col md={3} className="d-flex align-items-center">
+      <hr></hr>
+      <Row className="mt-3 align-items-center">
+        <Col md={2}>
+          <strong>Filter By:</strong>
+        </Col>
+        <Col md={2} className="d-flex align-items-center">
           <Form.Group>
             <Form.Check 
               type="checkbox"   
@@ -117,7 +121,7 @@ const Dashboard = () => {
             />
           </Form.Group>
         </Col>
-        <Col md={3}>
+        <Col md={2}>
           <Form.Group>
             <Form.Control className="custom-dropdown" as="select" value={priceRange} onChange={handlePriceRangeChange}>
               <option value="">Price Range</option>
@@ -128,7 +132,7 @@ const Dashboard = () => {
             </Form.Control>
           </Form.Group>
         </Col>
-        <Col md={3}>
+        <Col md={2}>
           <Form.Group>
             <Form.Control className="custom-dropdown" as="select" value={selectedCategory} onChange={(e) => setSelectedCategory(e.target.value)}>
               <option value="">Categories</option>
@@ -138,10 +142,11 @@ const Dashboard = () => {
             </Form.Control>
           </Form.Group>
         </Col>
-        <Col md={3} className="d-flex align-items-center justify-content-end">
+        <Col md={4} className="d-flex align-items-center justify-content-end">
           <Button variant="secondary" onClick={handleClearFilters}>Clear All</Button>
         </Col>
       </Row>
+      <hr></hr>
       <Row className="mt-4">
         {filteredRestaurants.length > 0 ? (
           filteredRestaurants.map((resto) => (
@@ -173,7 +178,6 @@ const Dashboard = () => {
                   </Card.Text>
                   {findRestoItem(resto.id) ? (
                     <>
-                      <Card.Text>Categories:</Card.Text>
                       <Card.Text>
                         {findRestoItem(resto.id).categories.map((category, index) => (
                           <span key={index} className="badge bg-secondary me-1">{category.name}</span>
@@ -184,7 +188,11 @@ const Dashboard = () => {
                     <Card.Text>No categories available</Card.Text>
                   )}
                   <Card.Text>Price Range: {getPriceRange(resto.id)}</Card.Text>
-                  <Card.Text>Status: {resto.status || "Closed"}</Card.Text>
+                  <Card.Text>
+                    <span className={resto.status === "Open" ? "text-success" : "text-danger"}>
+                      <i className={resto.status === "Open" ? "fas fa-circle" : "fas fa-circle"}></i>
+                    </span> {resto.status || "Closed"}
+                  </Card.Text>
                   <Link to={`/detail/${resto.id}`}>
                     <Button variant="primary">Learn More</Button>
                   </Link>
