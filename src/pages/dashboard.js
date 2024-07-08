@@ -59,20 +59,21 @@ const Dashboard = () => {
   }, [restoList]);
 
   const findRestoItem = (restoId) => {
-    return restoDetail.find((item) => item.id === restoId); //done
+    return restoDetail.find((item) => item.id === restoId);
   };
 
   const handleFilterChange = () => {
-    return restoDetail.filter((resto) => { //done
+    return restoDetail.filter((resto) => {
       const matchesCategory = selectedCategory ? resto.categories.some((cat) => cat.name === selectedCategory) : true;
       const matchesStatus = openNow ? resto.status === "Open" : true;
-      const matchesPrice = priceRange ? getPriceRange(resto) <= priceRange : true;
+      const matchesPrice = priceRange ? getPriceRange(resto.id) <= priceRange : true;
       return matchesCategory && matchesPrice && matchesStatus;
     });
   };
 
-  const getPriceRange = (resto) => {
-    if (resto.price === undefined || resto.price === 0) return "$"; //note for myself : fix pls
+  const getPriceRange = (restoId) => {
+    const resto = findRestoItem(restoId);
+    if (!resto || resto.price === undefined || resto.price === 0) return "$(N/A)";
     if (resto.price <= 10) return "$";
     if (resto.price <= 20) return "$$";
     if (resto.price <= 30) return "$$$";
@@ -182,7 +183,7 @@ const Dashboard = () => {
                   ) : (
                     <Card.Text>No categories available</Card.Text>
                   )}
-                  <Card.Text>Price Range: {getPriceRange(resto)}</Card.Text>
+                  <Card.Text>Price Range: {getPriceRange(resto.id)}</Card.Text>
                   <Card.Text>Status: {resto.status || "Closed"}</Card.Text>
                   <Link to={`/detail/${resto.id}`}>
                     <Button variant="primary">Learn More</Button>
