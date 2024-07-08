@@ -166,7 +166,7 @@ const Dashboard = () => {
                     width={200}
                     height={270}
                   />
-                  <span className={`position-absolute top-0 start-0 translate-middle badge rounded-pill bg-${resto.status === "Open" ? "success" : "danger"}`}>
+                  <span className={`position-absolute top-0 start-270 translate-middle badge rounded-pill bg-${resto.status === "Open" ? "success" : "danger"}`}>
                     {resto.status === "Open" ? "Open" : "Closed"}
                   </span>
                 </div>
