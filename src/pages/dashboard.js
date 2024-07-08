@@ -104,9 +104,11 @@ const Dashboard = () => {
   return (
     <Container>
       <h1 className="mt-4">Restaurant</h1>
-      <p className="mt-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-      <br></br>
-      <hr></hr>
+      <p className="mt-4">
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+      </p>
+      <br />
+      <hr />
       <Row className="mt-3 align-items-center">
         <Col md={2}>
           <strong>Filter By:</strong>
@@ -146,54 +148,54 @@ const Dashboard = () => {
           <Button variant="secondary" onClick={handleClearFilters}>Clear All</Button>
         </Col>
       </Row>
-      <hr></hr>
+      <hr />
       <Row className="mt-4">
         {filteredRestaurants.length > 0 ? (
           filteredRestaurants.map((resto) => (
-            <Col md={3} className="mb-4" key={resto.id}>
-              <Card>
-                <Card.Img
-                  variant="top"
-                  src={
-                    resto.pictureId
-                      ? `https://restaurant-api.dicoding.dev/images/medium/${resto.pictureId}`
-                      : "default-image.jpg"
-                  }
-                  alt={resto.name || "No name available"}
-                  height="200"
-                  width="270"
-                />
-                <Card.Body>
-                  <Card.Title>{resto.name || "No name available"}</Card.Title>
-                  <Card.Text>
-                    Rating: 
-                    <ReactStars
-                      count={5}
-                      value={resto.rating}
-                      size={24}
-                      activeColor="#ffd700"
-                      isHalf={true}
-                      edit={false}
-                    />
-                  </Card.Text>
-                  {findRestoItem(resto.id) ? (
-                    <>
+            <Col md={4} className="mb-4" key={resto.id}>
+              <Card className="h-100 shadow-sm">
+                <div className="position-relative">
+                  <Card.Img
+                    variant="top"
+                    src={
+                      resto.pictureId
+                        ? `https://restaurant-api.dicoding.dev/images/medium/${resto.pictureId}`
+                        : "default-image.jpg"
+                    }
+                    alt={resto.name || "No name available"}
+                    width={200}
+                    height={270}
+                  />
+                  <span className={`position-absolute top-0 start-0 translate-middle badge rounded-pill bg-${resto.status === "Open" ? "success" : "danger"}`}>
+                    {resto.status === "Open" ? "Open" : "Closed"}
+                  </span>
+                </div>
+                <Card.Body className="d-flex flex-column justify-content-between">
+                  <div>
+                    <Card.Title>{resto.name || "No name available"}</Card.Title>
+                    <Card.Text>
+                      <ReactStars
+                        count={5}
+                        value={resto.rating}
+                        size={24}
+                        activeColor="#ffd700"
+                        isHalf={true}
+                        edit={false}
+                      />
+                    </Card.Text>
+                    {findRestoItem(resto.id) ? (
                       <Card.Text>
                         {findRestoItem(resto.id).categories.map((category, index) => (
                           <span key={index} className="badge bg-secondary me-1">{category.name}</span>
                         ))}
                       </Card.Text>
-                    </>
-                  ) : (
-                    <Card.Text>No categories available</Card.Text>
-                  )}
-                  <Card.Text>Price Range: {getPriceRange(resto.id)}</Card.Text>
-                  <Card.Text>
-                    <span className={resto.status === "Open" ? "text-success" : "text-danger"}>
-                      <i className={resto.status === "Open" ? "fas fa-circle" : "fas fa-circle"}></i>
-                    </span> {resto.status || "Closed"}
-                  </Card.Text>
-                  <Link to={`/detail/${resto.id}`}>
+                    ) : (
+                      <Card.Text>No categories available</Card.Text>
+                    )}
+                    <Card.Text>Price Range: {getPriceRange(resto.id)}</Card.Text>
+                  </div>
+                  <br></br>
+                  <Link to={`/detail/${resto.id}`} className="mt-auto">
                     <Button variant="primary">Learn More</Button>
                   </Link>
                 </Card.Body>

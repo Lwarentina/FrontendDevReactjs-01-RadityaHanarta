@@ -52,14 +52,6 @@ const Detail = () => {
                   edit={false}
                 />
               </div>
-            </Card.Body>
-          </Card>
-        </Col>
-      </Row>
-      <Row>
-        <Col md={6} className="mb-3">
-          <Card>
-            <Card.Body>
               <Card.Title>Categories</Card.Title>
               <ListGroup variant="flush">
                 {restaurant.categories.map((category, index) => (
@@ -69,6 +61,8 @@ const Detail = () => {
             </Card.Body>
           </Card>
         </Col>
+      </Row>
+      <Row>
         <Col md={6} className="mb-3">
           <Card>
             <Card.Body>
