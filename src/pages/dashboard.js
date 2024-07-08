@@ -152,8 +152,8 @@ const Dashboard = () => {
       <Row className="mt-4">
         {filteredRestaurants.length > 0 ? (
           filteredRestaurants.map((resto) => (
-            <Col md={4} className="mb-4" key={resto.id}>
-              <Card className="h-100 shadow-sm">
+            <Col md={3} className="mb-4" key={resto.id}>
+              <Card className="h-200 shadow-sm">
                 <div className="position-relative">
                   <Card.Img
                     variant="top"
@@ -163,8 +163,8 @@ const Dashboard = () => {
                         : "default-image.jpg"
                     }
                     alt={resto.name || "No name available"}
-                    width={200}
-                    height={270}
+                    height={200}
+                    width={270}
                   />
                   <span className={`position-absolute top-0 start-270 translate-middle badge rounded-pill bg-${resto.status === "Open" ? "success" : "danger"}`}>
                     {resto.status === "Open" ? "Open" : "Closed"}
