@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { Container, Row, Col, Card, Button, Spinner, Alert, Form } from "react-bootstrap";
 import ReactStars from "react-rating-stars-component";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './dashboard.css'; // Make sure to create this CSS file
 
 const Dashboard = () => {
   const [restoList, setRestoList] = useState([]);
@@ -71,16 +72,22 @@ const Dashboard = () => {
   };
 
   const getPriceRange = (resto) => {
-    if (resto.price === undefined) return 1; // note for myself : pls fix later
-    if (resto.price <= 10) return 1;
-    if (resto.price <= 20) return 2;
-    if (resto.price <= 30) return 3;
-    return 4;
+    if (resto.price === undefined || resto.price === 0) return "$";
+    if (resto.price <= 10) return "$";
+    if (resto.price <= 20) return "$$";
+    if (resto.price <= 30) return "$$$";
+    return "$$$$";
   };
 
   const handlePriceRangeChange = (e) => {
     const range = parseInt(e.target.value);
     setPriceRange(range);
+  };
+
+  const handleClearFilters = () => {
+    setSelectedCategory("");
+    setOpenNow(false);
+    setPriceRange("");
   };
 
   if (loading) {
@@ -96,11 +103,13 @@ const Dashboard = () => {
   return (
     <Container>
       <h1 className="mt-4">Restaurant</h1>
+      <p className="mt-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+      <br></br>
       <Row className="mt-4">
         <Col md={3} className="d-flex align-items-center">
           <Form.Group>
             <Form.Check 
-              type="checkbox" 
+              type="checkbox"   
               label="Open Now" 
               checked={openNow} 
               onChange={(e) => setOpenNow(e.target.checked)} 
@@ -109,9 +118,8 @@ const Dashboard = () => {
         </Col>
         <Col md={3}>
           <Form.Group>
-            <Form.Label>Price Range</Form.Label>
-            <Form.Control as="select" value={priceRange} onChange={handlePriceRangeChange}>
-              <option value="">All</option>
+            <Form.Control className="custom-dropdown" as="select" value={priceRange} onChange={handlePriceRangeChange}>
+              <option value="">Price Range</option>
               <option value="1">$</option>
               <option value="2">$$</option>
               <option value="3">$$$</option>
@@ -121,16 +129,17 @@ const Dashboard = () => {
         </Col>
         <Col md={3}>
           <Form.Group>
-            <Form.Label>Category</Form.Label>
-            <Form.Control as="select" value={selectedCategory} onChange={(e) => setSelectedCategory(e.target.value)}>
-              <option value="">All</option>
+            <Form.Control className="custom-dropdown" as="select" value={selectedCategory} onChange={(e) => setSelectedCategory(e.target.value)}>
+              <option value="">Categories</option>
               {categories.map((category, index) => (
                 <option key={index} value={category}>{category}</option>
               ))}
             </Form.Control>
           </Form.Group>
         </Col>
-        
+        <Col md={3} className="d-flex align-items-center justify-content-end">
+          <Button variant="secondary" onClick={handleClearFilters}>Clear All</Button>
+        </Col>
       </Row>
       <Row className="mt-4">
         {filteredRestaurants.length > 0 ? (
@@ -173,7 +182,7 @@ const Dashboard = () => {
                   ) : (
                     <Card.Text>No categories available</Card.Text>
                   )}
-                  <Card.Text>Price Range: {getPriceRange(resto) !== undefined ? `$${resto.price}` : "N/A"}</Card.Text>
+                  <Card.Text>Price Range: {getPriceRange(resto)}</Card.Text>
                   <Card.Text>Status: {resto.status || "Closed"}</Card.Text>
                   <Link to={`/detail/${resto.id}`}>
                     <Button variant="primary">Learn More</Button>

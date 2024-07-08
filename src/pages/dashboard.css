@@ -1,0 +1,8 @@
+.custom-dropdown {
+    appearance: none;
+    background: url('data:image/svg+xml;utf8,<svg fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><polyline points="6 9 12 15 18 9"/></svg>') no-repeat right 0.75rem center/1.5rem 1.5rem;
+    padding-right: 2.25rem;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+  }
+  
