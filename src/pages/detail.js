@@ -33,7 +33,7 @@ const Detail = () => {
         <Link to={`/`}>
           <Button variant="primary">Back</Button>
         </Link>
-        <Col md={12} className="mb-3">
+        <Col md={6} className="mb-3">
           <Card>
             <Card.Img variant="top" src={`https://restaurant-api.dicoding.dev/images/medium/${restaurant.pictureId}`} alt={restaurant.name} />
             <Card.Body>
@@ -52,17 +52,9 @@ const Detail = () => {
                   edit={false}
                 />
               </div>
-              <Card.Title>Categories</Card.Title>
-              <ListGroup variant="flush">
-                {restaurant.categories.map((category, index) => (
-                  <ListGroup.Item key={index}>{category.name}</ListGroup.Item>
-                ))}
-              </ListGroup>
             </Card.Body>
           </Card>
         </Col>
-      </Row>
-      <Row>
         <Col md={6} className="mb-3">
           <Card>
             <Card.Body>
@@ -88,7 +80,22 @@ const Detail = () => {
         </Col>
       </Row>
       <Row>
-        <Col>
+        <Col md={12}>
+          <Card>
+            <Card.Body>
+              <Card.Title>Categories</Card.Title>
+                <ListGroup variant="flush">
+                  {restaurant.categories.map((category, index) => (
+                    <ListGroup.Item key={index}>{category.name}</ListGroup.Item>
+                  ))}
+                </ListGroup>
+            </Card.Body>
+          </Card>
+        </Col>
+      </Row>
+      <br></br>
+      <Row>
+        <Col md={12}>
           <Card>
             <Card.Body>
               <Card.Title>Customer Reviews</Card.Title>
