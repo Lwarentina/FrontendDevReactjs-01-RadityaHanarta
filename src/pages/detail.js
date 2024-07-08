@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import ReactStars from "react-rating-stars-component";
-import { Container, Row, Col, Card, ListGroup } from 'react-bootstrap';
+import { Link } from "react-router-dom"
+import { Container, Row, Col, Card, ListGroup, Button, } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Detail = () => {
@@ -29,6 +30,9 @@ const Detail = () => {
   return (
     <Container className="mt-4">
       <Row>
+        <Link to={`/`}>
+          <Button variant="primary">Back</Button>
+        </Link>
         <Col md={12} className="mb-3">
           <Card>
             <Card.Img variant="top" src={`https://restaurant-api.dicoding.dev/images/medium/${restaurant.pictureId}`} alt={restaurant.name} />
