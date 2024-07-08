@@ -20,7 +20,7 @@ const Dashboard = () => {
     fetchData();
   }, []);
 
-  const fetchData = async () => {
+  const fetchData = async () => { //fixed
     try {
       const response = await axios.get(`https://restaurant-api.dicoding.dev/list`);
       setRestoList(response.data.restaurants);
@@ -32,7 +32,7 @@ const Dashboard = () => {
     }
   };
 
-  const fetchRestaurantDetail = async (restoId) => {
+  const fetchRestaurantDetail = async (restoId) => { //fixed
     try {
       const response = await axios.get(`https://restaurant-api.dicoding.dev/detail/${restoId}`);
       return response.data.restaurant;
@@ -42,7 +42,7 @@ const Dashboard = () => {
     }
   };
 
-  useEffect(() => {
+  useEffect(() => { //ah dahlah
     const fetchRestoDetails = async () => {
       const detailedRestaurants = await Promise.all(
         restoList.map((resto) => fetchRestaurantDetail(resto.id))
@@ -58,11 +58,11 @@ const Dashboard = () => {
     fetchRestoDetails();
   }, [restoList]);
 
-  const findRestoItem = (restoId) => {
+  const findRestoItem = (restoId) => { //done
     return restoDetail.find((item) => item.id === restoId);
   };
 
-  const handleFilterChange = () => {
+  const handleFilterChange = () => { //done
     return restoDetail.filter((resto) => {
       const matchesCategory = selectedCategory ? resto.categories.some((cat) => cat.name === selectedCategory) : true;
       const matchesStatus = openNow ? resto.status === "Open" : true;
@@ -71,7 +71,7 @@ const Dashboard = () => {
     });
   };
 
-  const getPriceRange = (restoId) => {
+  const getPriceRange = (restoId) => { //note : fix later after apex
     const resto = findRestoItem(restoId);
     if (!resto || resto.price === undefined || resto.price === 0) return "$(N/A)";
     if (resto.price <= 10) return "$";
