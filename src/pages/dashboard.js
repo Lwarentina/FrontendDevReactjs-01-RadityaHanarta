@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { Container, Row, Col, Card, Button, Spinner, Alert, Form } from "react-bootstrap";
 import ReactStars from "react-rating-stars-component";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './dashboard.css'; // Make sure to create this CSS file
+import './dashboard.css'; 
 
 const Dashboard = () => {
   const [restoList, setRestoList] = useState([]);
@@ -59,11 +59,11 @@ const Dashboard = () => {
   }, [restoList]);
 
   const findRestoItem = (restoId) => {
-    return restoDetail.find((item) => item.id === restoId);
+    return restoDetail.find((item) => item.id === restoId); //done
   };
 
   const handleFilterChange = () => {
-    return restoDetail.filter((resto) => {
+    return restoDetail.filter((resto) => { //done
       const matchesCategory = selectedCategory ? resto.categories.some((cat) => cat.name === selectedCategory) : true;
       const matchesStatus = openNow ? resto.status === "Open" : true;
       const matchesPrice = priceRange ? getPriceRange(resto) <= priceRange : true;
@@ -72,7 +72,7 @@ const Dashboard = () => {
   };
 
   const getPriceRange = (resto) => {
-    if (resto.price === undefined || resto.price === 0) return "$";
+    if (resto.price === undefined || resto.price === 0) return "$"; //note for myself : fix pls
     if (resto.price <= 10) return "$";
     if (resto.price <= 20) return "$$";
     if (resto.price <= 30) return "$$$";
